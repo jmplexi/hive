@@ -51,6 +51,9 @@ I would also like to mention some features that I would have liked to add if I h
 ### Size prop
 An optional size prop that could be used to create smaller or larger sizes for the component. This would be passed in as an enum i.e. `sm`, `md`, `lg`. Using scss interpolation we could have preset component widths that would render based on which prop was passed in.
 
+### Selected Options Overflow
+Currently, if the user selects many options, the input will continue to grow in size and can become unreasonably large. Given more time I would have liked to limit the number of selected options displayed. This could be accomplished by limiting display to say 5 selected options and then render an additional item that says something like `+X More items`, where `X` is the number of additional items. Clicking on this item could expand and then show the full list.
+
 ### Backend Discussion
 Since there were no specifications on how the data input for the component should be shaped, I took some liberties based on assumptions that I made on my own:
     1. We must be able to support a large amount of options, possibly in the thousands
