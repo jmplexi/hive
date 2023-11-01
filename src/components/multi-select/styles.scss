@@ -1,0 +1,137 @@
+.select {
+    margin-left:20px;
+    margin-top: 20px;
+    display: block;
+    position: relative;
+    width: 300px;
+    cursor: pointer;
+
+    .placeholder {
+        margin-left: 10px;
+        opacity: 0.6;
+    }
+
+    .select-tag {
+        position: absolute;
+        left: 15px;
+        top: -15px;
+        background: white;
+        padding: 0px 5px;
+        color: #3564af;
+    }
+
+    .select-dropdown { 
+        min-height: 30px;
+        padding: 5px;
+        border: solid #4285F4 2px;
+        border-radius: 6px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .select-list { 
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+
+            .single-select-item {
+                margin-left: 10px;
+            }
+
+            .multi-select-item { 
+                border: solid #4285F4 1px;
+                border-radius: 6px;
+                padding: 5px;
+                display: flex;
+                justify-content: space-between;
+                gap: 5px;
+
+                button {
+                    background: none;
+                    color: inherit;
+                    border: none;
+                    padding: 0;
+                    font: inherit;
+                    cursor: pointer;
+                    outline: inherit;
+                }            }
+        }
+    }
+
+    .select-options { 
+        box-shadow: 0px 2px 6px 0px #808080;
+        max-height: 200px;
+        overflow-x: hidden;
+        overflow-y: scroll;
+        width: 295px;
+        margin: auto;
+
+
+        .multi-select-option-item { 
+            text-align: left;
+            height: 40px;
+            display: flex;
+            align-content: center;
+            align-items: center;
+
+            &:hover {
+                background-color: #4285F4;
+                color: white;
+            }
+
+            label, input {
+                margin-left: 15px;
+                cursor: pointer;
+            }
+        }
+
+        .single-select-option-item {
+            text-align: left;
+            height: 40px;
+            display: flex;
+            align-content: center;
+            align-items: center;
+            padding: 0px 20px;
+
+            &:hover {
+                background-color: #4285F4;
+                color: white;
+            }
+        }
+
+        .search-bar {
+            border-radius: 6px;
+            margin-top: 5px;
+            width: 240px;
+            height: 30px;
+            padding-left: 5px;
+            padding: 2px 7px;
+            border: none;
+
+            &:focus-visible {
+                border: none;
+            }
+        }
+    }
+
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: #ffffff;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #808080;
+    border-radius: 10px;
+    border: 3px solid #ffffff;
+  }
+}
+
+
+
+
+
+
+

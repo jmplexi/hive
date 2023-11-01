@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# Summary
+This project uses React with JSX to create a dropdown that allows for either multi-select or single-select functionality.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Demoing
+The app can be run simply by running an `npm -i` command to install all required dependencies. From there running `npm run start` should run the project on a live server. `App.js` file contains the bulk of the demo; it renders one multi-select and one single-select with associated input objects for each. Multi-select uses a list of names while single-select has options for months. When the app displays, next to each select input is a list labelled `Selected Values`. This will display the values that are returned from the options selected in the component. The idea is that the values could be submitted to a form or passed to an API.
 
-## Available Scripts
+## API
+The `MultiSelect` component takes in 5 props that are explained as follows:
 
-In the project directory, you can run:
+### isMulti
+The `isMulti` prop is a boolean that determines whether the dropdown will render a multi-select dropdown, or a single-select dropdown. Multi select dropdowns will render a options with checkboxes which allow the user to determine which of the options have been selected. Additional, in multi mode the user has the option of removing selected options from the input bar, by clicking the `x` icon next to the displayed selection.
 
-### `npm start`
+In single mode, the dropdown behaves as a typical select dropdown, where the user can select a single option.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The object returned from the component differs slightly as the multi-select version will return each return value as a key-indexed object, with the key being the original index from the options object. In single-select mode the object is a simple object with `value` and `label` attributes.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### options
+The `options` prop takes in an object with the the properties `label` and `value`, indexed by a number that will determine the display order.
+```
+    const obj = {
+        0: {
+            label: "TEST"
+            value: "test1"
+        }
+    }
+```
 
-### `npm test`
+The label determines what will be displayed in the select option, the value is presumably the value that will be passed on from the select option. The indexed key determines the order of the display in the options. I chose to use indexed keys rather than an array of Objects specifically to satisfy the requirement that `The component should render large lists efficiently`. By using indexed keys rather than an unordered array, we can quickly determine if an option has been selected without having to loop through an array and checking each individual element. This has a sideeffect that when options are selected in the multiselect, the visible options will always appear in their indexed order rather than the order they were selected, however I found this to be preferable to the performance impact that having to loop through a large array would incur. My idea here is that the indexing would be provided by whatever backend API provided the data, and in this case I would rather the backend do the heavy-lifting.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### setItems
+The `setItems` prop takes a `setState` function, this is primarily used to retrieve the data that is processed by the `MultiSelect` component.
 
-### `npm run build`
+### tag
+A tag that labels the MultiSelect input, set by the user.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### placeholder
+An optional placeholder value when the `MultiSelect` input is empty. This defaults to an empty input if left blank
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Bonus Considerations
+Some things I added to the `MultiSelect` that were not specifically mentioned as requirements in the project spec are as follows
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Search
+I included search functionality for both the single and multi select options. The user can use the searchbar to filter through the options. This should be especially helpful in the case of a very large list of options, or if a user has many selected options in multi-select mode they can easily search to find an option that they wish to unselect.
 
-### `npm run eject`
+### Remove Selection From Input
+I included a simple UI that allows a user to unselect an option even if the dropdown is not open. By clicking the `x` icon near a selected option in the input, the user can unselect an option.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Things I would add given more time
+I would also like to mention some features that I would have liked to add if I had more time to work on the project as follows:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Size prop
+An optional size prop that could be used to create smaller or larger sizes for the component. This would be passed in as an enum i.e. `sm`, `md`, `lg`. Using scss interpolation we could have preset component widths that would render based on which prop was passed in.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Backend Discussion
+Since there were no specifications on how the data input for the component should be shaped, I took some liberties based on assumptions that I made on my own:
+    1. We must be able to support a large amount of options, possibly in the thousands
+    2. The user can select any number of options without limit
+    3. The order of the options is important, and must be preserved whenever we process the data.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+These considerations could differ however from the actual use case of the component. If for example our use case required us to limit the amount of options a user could select, or we knew for certain we would never have more than X amount of options, then the component could have been designed with that in mind, and some changes could have been made, i.e. using an array of objects rather than a key-indexed object. These discussions are pivotal to front-end development and I would look forward to them at Hive if given the opportunity.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### CSS/SCSS naming
+Assuming this component would fit into some sort of design system, I would have liked to discuss with design/product about how this component fits into the front-end ecosystem. Naming conventions for css/scss classes could definitely be tightened up however that would require some context on how this component fits into the rest of the system.

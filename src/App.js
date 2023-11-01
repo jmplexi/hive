@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react'
+import { MultiSelect } from './components/multi-select/multi-select'
+import { people, months } from './options.js'
+import './App.scss'
 
-function App() {
+function App () {
+  const [selectedMultiItems, setSelectedMultiItems] = useState({})
+  const [selectedItem, setSelectedItem] = useState({})
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <>
+    <div className="example1">
+      <MultiSelect
+        isMulti={true}
+        options={people}
+        setItems={setSelectedMultiItems}
+        tag="People"
+        placeHolder="Search for People"
+      />
+      <div>
+        <div>Selected Values</div>
+        <ul>
+          {Object.keys(selectedMultiItems).map((i) => {
+            return (<li key={i}>{selectedMultiItems[i].value}</li>)
+          })}
+        </ul>
+      </div>
     </div>
-  );
+    <br></br>
+    <br></br>
+    <div className="example2">
+      <MultiSelect
+        isMulti={false}
+        options={months}
+        setItems={setSelectedItem}
+        tag="Year"
+        placeHolder="Select a Month"
+      />
+      <div>
+        <div>Selected Values</div>
+        <ul>
+          <li>{selectedItem.value}</li>
+        </ul>
+      </div>
+    </div>
+    </>
+  )
 }
 
-export default App;
+export default App
